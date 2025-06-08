@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.JieyueDao">
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id as id
+        ,a.yh_types as yhTypes
+        ,a.ts_types as tsTypes
+        ,a.lb_types as lbTypes
+        ,a.cbs_types as cbsTypes
+        ,a.sj_types as sjTypes
+        ,a.create_time as createTime
+    </sql>
+
+    <select id="selectListView" parameterType="map" resultType="com.entity.view.JieyueView" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM Jieyue  a
+        <where>
+            <if test=" params.yhTypes != '' and params.yhTypes != null and params.yhTypes != 'null' ">
+                and a.yh_types = #{params.yhTypes}
+            </if>
+            <if test=" params.tsTypes != '' and params.tsTypes != null and params.tsTypes != 'null' ">
+                and a.ts_types = #{params.tsTypes}
+            </if>
+            <if test=" params.lbTypes != '' and params.lbTypes != null and params.lbTypes != 'null' ">
+                and a.lb_types = #{params.lbTypes}
+            </if>
+            <if test=" params.cbsTypes != '' and params.cbsTypes != null and params.cbsTypes != 'null' ">
+                and a.cbs_types = #{params.cbsTypes}
+            </if>
+            <if test=" params.sjTypes != '' and params.sjTypes != null and params.sjTypes != 'null' ">
+                and a.sj_types = #{params.sjTypes}
+            </if>
+            <if test=" params.yh != '' and params.yh != null">
+                and a.yh_types = #{params.yh}
+            </if>
+        </where>
+        order by a.id desc
+    </select>
+
+</mapper>
